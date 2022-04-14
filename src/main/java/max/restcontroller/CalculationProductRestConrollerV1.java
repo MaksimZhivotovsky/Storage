@@ -35,7 +35,7 @@ public class CalculationProductRestConrollerV1 {
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity addCalculation(@Valid @RequestBody CalculationProduct calculation, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body("Введены не корректные данные");
+			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
 		final CalculationProduct result = calculationProductService.addCalculation(calculation);
 		return ResponseEntity.ok().body(result);
@@ -50,7 +50,7 @@ public class CalculationProductRestConrollerV1 {
 	@PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity changeCalculation(@Valid @RequestBody CalculationProduct calculationProduct, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body("Введены не корректные данные");
+			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
 		final CalculationProduct result = calculationProductService.addCalculation(calculationProduct);
 		return ResponseEntity.ok().body(result);

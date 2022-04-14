@@ -15,51 +15,50 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import max.model.Storage;
-import max.servise.StorageService;
+import max.model.Sale;
+import max.servise.SaleService;
 
 @RestController
-@RequestMapping("/api/v1/storages")
-public class StorageRestControllerV1 {
+@RequestMapping("/api/v1/sales")
+public class SaleRestControllerV1 {
 	
-	private final StorageService storageService;
+	private final SaleService saleService;
 	
-	public StorageRestControllerV1(StorageService storageService) {
-		this.storageService = storageService;
+	public SaleRestControllerV1(SaleService saleService) {
+		this.saleService = saleService;
 	}
 	
-	@GetMapping(value="/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Storage> getStorages() {
-		return storageService.getAllStorages();
+	public List<Sale> getSales() {
+		return saleService.getAllSales();
 	}
 	
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity addStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
+	public ResponseEntity addSale(@Valid @RequestBody Sale sale, BindingResult bindingresult) {
+		if(bindingresult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
-		storageService.addStorage(storage);
-		return ResponseEntity.ok().body(storage);
+		final Sale result = saleService.addSale(sale);
+		return ResponseEntity.ok().body(result);
 	}
 	
 	@GetMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity deleteStorage(@PathVariable Long id) {
-		storageService.deleteById(id);
+	public ResponseEntity deleteSale(@PathVariable Long id) {
+		saleService.deleteById(id);
 		return ResponseEntity.ok().body(id);
 	}
 	
 	@PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity changeStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
+	public ResponseEntity changeSale(@Valid @RequestBody Sale sale, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
-	storageService.addStorage(storage);
-	return ResponseEntity.ok().body(storage);
-		
+		saleService.addSale(sale);
+		return ResponseEntity.ok().body(sale);
 	}
  
 }

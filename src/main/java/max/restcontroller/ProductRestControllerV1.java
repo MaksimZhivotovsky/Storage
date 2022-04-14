@@ -44,7 +44,7 @@ public class ProductRestControllerV1 {
 	public ResponseEntity addProduct(@Valid @RequestBody Product product, BindingResult bindingResult) {
 		final Product result = productService.addProduct(product);
 		if(bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body("Введены не корректные данные");
+			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
 		
 		return ResponseEntity.ok().body(result);
@@ -58,7 +58,7 @@ public class ProductRestControllerV1 {
 	@PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity changeProduct(@Valid @RequestBody Product product, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			return ResponseEntity.badRequest().body("Введены не корректные данные");
+			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
 		productService.addProduct(product);
 		return ResponseEntity.ok().body(product);
