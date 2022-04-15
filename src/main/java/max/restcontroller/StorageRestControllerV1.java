@@ -36,7 +36,7 @@ public class StorageRestControllerV1 {
 	
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity addStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
+	public ResponseEntity<Object> addStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
@@ -46,14 +46,14 @@ public class StorageRestControllerV1 {
 	
 	@GetMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity deleteStorage(@PathVariable Long id) {
+	public ResponseEntity<Long> deleteStorage(@PathVariable Long id) {
 		storageService.deleteById(id);
 		return ResponseEntity.ok().body(id);
 	}
 	
 	@PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity changeStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
+	public ResponseEntity<Object> changeStorage(@Valid @RequestBody Storage storage, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}

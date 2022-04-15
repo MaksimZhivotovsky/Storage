@@ -33,7 +33,7 @@ public class CalculationProductRestConrollerV1 {
 	}
 	
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity addCalculation(@Valid @RequestBody CalculationProduct calculation, BindingResult bindingResult) {
+	public ResponseEntity<Object> addCalculation(@Valid @RequestBody CalculationProduct calculation, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
@@ -42,13 +42,13 @@ public class CalculationProductRestConrollerV1 {
 	}
 	
 	@GetMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity deleteCalculation(@PathVariable Long id) {
+	public ResponseEntity<Long> deleteCalculation(@PathVariable Long id) {
 		calculationProductService.deleteById(id);
 		return ResponseEntity.ok().body(id);
 	}
 	
 	@PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity changeCalculation(@Valid @RequestBody CalculationProduct calculationProduct, BindingResult bindingResult) {
+	public ResponseEntity<Object> changeCalculation(@Valid @RequestBody CalculationProduct calculationProduct, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -34,7 +33,7 @@ public class MovingRestControllerV1 {
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addMoving(@Valid @RequestBody Moving moving, BindingResult bindingResult) {
+    public ResponseEntity<Object> addMoving(@Valid @RequestBody Moving moving, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return  ResponseEntity.badRequest().body("Введены некорректные данные");
         }
@@ -43,13 +42,13 @@ public class MovingRestControllerV1 {
     }
 
     @GetMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteMoving(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteMoving(@PathVariable Long id) {
         movingService.deleteById(id);
         return ResponseEntity.ok().body(id);
     }
 
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity changeMoving(@Valid @RequestBody Moving moving, BindingResult bindingResult) {
+    public ResponseEntity<Object> changeMoving(@Valid @RequestBody Moving moving, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return  ResponseEntity.badRequest().body("Введены некорректные данные");
         }

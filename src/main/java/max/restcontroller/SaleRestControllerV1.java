@@ -36,7 +36,7 @@ public class SaleRestControllerV1 {
 	
 	@PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity addSale(@Valid @RequestBody Sale sale, BindingResult bindingresult) {
+	public ResponseEntity<Object> addSale(@Valid @RequestBody Sale sale, BindingResult bindingresult) {
 		if(bindingresult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}
@@ -46,14 +46,14 @@ public class SaleRestControllerV1 {
 	
 	@GetMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity deleteSale(@PathVariable Long id) {
+	public ResponseEntity<Long> deleteSale(@PathVariable Long id) {
 		saleService.deleteById(id);
 		return ResponseEntity.ok().body(id);
 	}
 	
 	@PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity changeSale(@Valid @RequestBody Sale sale, BindingResult bindingResult) {
+	public ResponseEntity<Object> changeSale(@Valid @RequestBody Sale sale, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return ResponseEntity.badRequest().body("Введены некорректные данные");
 		}

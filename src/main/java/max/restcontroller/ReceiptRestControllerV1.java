@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -38,7 +37,7 @@ public class ReceiptRestControllerV1 {
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity addReceipt(@Valid @RequestBody Receipt receipt, BindingResult bindingResult) {
+    public ResponseEntity<Object> addReceipt(@Valid @RequestBody Receipt receipt, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return  ResponseEntity.badRequest().body("Введены некорректные данные");
         }
@@ -48,14 +47,14 @@ public class ReceiptRestControllerV1 {
 
     @GetMapping (value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity deleteReceipt(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteReceipt(@PathVariable Long id) {
         receiptService.deleteById(id);
         return  ResponseEntity.ok().body(id);
     }
 
     @PostMapping (value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity changeReceipt(@Valid @RequestBody Receipt receipt, BindingResult bindingResult) {
+    public ResponseEntity<Object> changeReceipt(@Valid @RequestBody Receipt receipt, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return  ResponseEntity.badRequest().body("Введены некорректные данные");
         }
